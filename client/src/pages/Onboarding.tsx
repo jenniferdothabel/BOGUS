@@ -7,7 +7,10 @@ import {
   FileText, 
   ShieldCheck, 
   ChevronRight,
-  ArrowLeft
+  ArrowLeft,
+  UserPlus,
+  Users,
+  Link as LinkIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +23,8 @@ import logo from "@assets/generated_images/minimalist_legal_icon_representing_ju
 
 export default function Onboarding() {
   const [step, setStep] = useState(1);
+  const [mode, setMode] = useState<"create" | "join" | null>(null);
+  const [inviteCode, setInviteCode] = useState("");
   const [, setLocation] = useLocation();
   const { profile, setProfile, completeOnboarding } = useUserStore();
 
@@ -29,6 +34,18 @@ export default function Onboarding() {
   const handleComplete = () => {
     completeOnboarding();
     setLocation("/");
+  };
+
+  const handleJoinCase = () => {
+    // Mock simulation of finding a case
+    if (inviteCode.length > 3) {
+      setProfile({
+        inmateName: "Joseph Rodriguez",
+        inmateId: "CDCR #T-12345",
+        facility: "Corcoran State Prison"
+      });
+      setStep(4); // Jump to success
+    }
   };
 
   const StepIndicator = ({ current }: { current: number }) => (
@@ -114,8 +131,108 @@ export default function Onboarding() {
           )}
 
           {step === 2 && (
-             <motion.div
+            <motion.div
               key="step2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <Card>
+                <CardContent className="p-8 space-y-6">
+                  <div className="space-y-2 text-center mb-6">
+                    <h2 className="text-2xl font-bold">How do you want to start?</h2>
+                    <p className="text-sm text-muted-foreground">Create a new tracking file or join an existing one.</p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button 
+                      className={`p-6 border-2 rounded-xl text-left transition-all hover:border-primary group ${mode === 'create' ? 'border-primary bg-primary/5' : 'border-border'}`}
+                      onClick={() => {
+                        setMode("create");
+                        handleNext();
+                      }}
+                    >
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform text-primary">
+                        <UserPlus className="w-6 h-6" />
+                      </div>
+                      <h3 className="font-semibold text-lg mb-1">Create New Casefile</h3>
+                      <p className="text-sm text-muted-foreground">I am starting a new tracking record for an inmate.</p>
+                    </button>
+
+                    <button 
+                      className={`p-6 border-2 rounded-xl text-left transition-all hover:border-primary group ${mode === 'join' ? 'border-primary bg-primary/5' : 'border-border'}`}
+                      onClick={() => {
+                        setMode("join");
+                        setStep(3); // Go to Join screen (simulating Step 3 for join)
+                      }}
+                    >
+                      <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform text-accent">
+                        <Users className="w-6 h-6" />
+                      </div>
+                      <h3 className="font-semibold text-lg mb-1">Join Existing Case</h3>
+                      <p className="text-sm text-muted-foreground">I have an invite code from a family member.</p>
+                    </button>
+                  </div>
+
+                  <Button variant="ghost" onClick={handleBack} className="w-full">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {step === 3 && mode === 'join' && (
+            <motion.div
+              key="step3-join"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <Card>
+                <CardContent className="p-8 space-y-6">
+                  <div className="space-y-2 text-center mb-6">
+                    <h2 className="text-2xl font-bold">Enter Invite Code</h2>
+                    <p className="text-sm text-muted-foreground">Enter the 6-digit code shared with you.</p>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="code">Invite Code</Label>
+                      <div className="relative">
+                        <LinkIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <Input 
+                          id="code" 
+                          className="pl-10 text-center text-lg tracking-widest uppercase font-mono" 
+                          placeholder="ABC-123" 
+                          value={inviteCode}
+                          onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
+                          maxLength={7}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 mt-4">
+                    <Button variant="outline" onClick={() => setStep(2)}>
+                      <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                    </Button>
+                    <Button 
+                      className="flex-1" 
+                      onClick={handleJoinCase}
+                      disabled={inviteCode.length < 3}
+                    >
+                      Join Case <ChevronRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {step === 3 && mode === 'create' && (
+             <motion.div
+              key="step3-create"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
@@ -165,7 +282,7 @@ export default function Onboarding() {
                   </div>
 
                   <div className="flex gap-3 mt-4">
-                    <Button variant="outline" onClick={handleBack}>
+                    <Button variant="outline" onClick={() => setStep(2)}>
                       <ArrowLeft className="w-4 h-4 mr-2" /> Back
                     </Button>
                     <Button className="flex-1" onClick={handleNext}>
@@ -177,9 +294,9 @@ export default function Onboarding() {
             </motion.div>
           )}
 
-          {step === 3 && (
+          {step === 4 && mode === 'create' && (
              <motion.div
-              key="step3"
+              key="step4-create"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
@@ -191,10 +308,10 @@ export default function Onboarding() {
                     <p className="text-sm text-muted-foreground">Upload your files to auto-populate your dashboard.</p>
                   </div>
                   
-                  <SmartZipUpload onComplete={handleNext} />
+                  <SmartZipUpload onComplete={() => setStep(5)} />
                   
                   <div className="text-center mt-6">
-                    <Button variant="ghost" className="text-muted-foreground hover:text-foreground" onClick={handleNext}>
+                    <Button variant="ghost" className="text-muted-foreground hover:text-foreground" onClick={() => setStep(5)}>
                       Skip for now
                     </Button>
                   </div>
@@ -203,9 +320,9 @@ export default function Onboarding() {
             </motion.div>
           )}
 
-           {step === 4 && (
+           {(step === 5 || (step === 4 && mode === 'join')) && (
              <motion.div
-              key="step4"
+              key="success"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
@@ -217,9 +334,13 @@ export default function Onboarding() {
                    </div>
                    
                    <div className="space-y-2">
-                     <h2 className="text-3xl font-bold font-serif text-primary">You're All Set!</h2>
+                     <h2 className="text-3xl font-bold font-serif text-primary">
+                       {mode === 'join' ? "Joined Successfully!" : "You're All Set!"}
+                     </h2>
                      <p className="text-muted-foreground max-w-md mx-auto">
-                       We've set up your dashboard. You can now track timelines, log incidents, and organize documents for {profile.inmateName}.
+                       {mode === 'join' 
+                        ? `You have successfully joined the casefile for ${profile.inmateName}. You can now contribute to the timeline and journal.` 
+                        : `We've set up your dashboard. You can now track timelines, log incidents, and organize documents for ${profile.inmateName}.`}
                      </p>
                    </div>
 
