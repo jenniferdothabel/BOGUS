@@ -9,7 +9,8 @@ import {
   LogOut,
   Bell,
   User,
-  ShieldCheck
+  ShieldCheck,
+  Sparkles
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -30,11 +31,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { href: "/", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/assistant", label: "AI Case Assistant", icon: Sparkles },
     { href: "/timeline", label: "Case Timeline", icon: CalendarClock },
     { href: "/documents", label: "Documents", icon: Files },
     { href: "/journal", label: "Journal & Notes", icon: BookOpen },
     { href: "/help", label: "Legal Help", icon: HelpCircle },
   ];
+
 
   const NavContent = () => (
     <div className="flex flex-col h-full bg-sidebar text-sidebar-foreground">

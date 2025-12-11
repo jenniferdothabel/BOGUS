@@ -9,6 +9,7 @@ import Timeline from "@/pages/Timeline";
 import Documents from "@/pages/Documents";
 import Journal from "@/pages/Journal";
 import Help from "@/pages/Help";
+import Assistant from "@/pages/Assistant";
 import Onboarding from "@/pages/Onboarding";
 import NotFound from "@/pages/not-found";
 import { useUserStore } from "@/lib/userStore";
@@ -38,6 +39,7 @@ function Router() {
     <Layout>
       <Switch>
         <Route path="/" component={Dashboard} />
+        <Route path="/assistant" component={Assistant} />
         <Route path="/timeline" component={Timeline} />
         <Route path="/documents" component={Documents} />
         <Route path="/journal" component={Journal} />
