@@ -67,7 +67,8 @@ export default function Onboarding() {
         <div className="text-center mb-10">
           <img src={logo} alt="Logo" className="w-16 h-16 mx-auto mb-6 rounded-xl shadow-lg" />
           <h1 className="text-3xl font-serif font-bold text-primary mb-2">Welcome to B.O.G.U.S.</h1>
-          <p className="text-muted-foreground font-medium">Bridging Offenders & Guardians Using Support</p>
+          <p className="text-lg font-medium text-foreground">Bridging Offenders & Guardians Using Support</p>
+          <p className="text-sm text-muted-foreground mt-2 italic">“Track cases. Stay informed. Take control.”</p>
         </div>
 
         <StepIndicator current={step} />
