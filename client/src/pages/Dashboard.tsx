@@ -12,9 +12,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { CASE_TIMELINE, MOCK_USER } from "@/lib/mockData";
+import { CASE_TIMELINE } from "@/lib/mockData";
+import { useUserStore } from "@/lib/userStore";
 
 export default function Dashboard() {
+  const { profile } = useUserStore();
   const activePhase = CASE_TIMELINE.find(t => t.status === 'active') || CASE_TIMELINE[0];
   const progress = (CASE_TIMELINE.filter(t => t.status === 'completed').length / CASE_TIMELINE.length) * 100;
 
@@ -28,8 +30,8 @@ export default function Dashboard() {
         className="flex flex-col md:flex-row md:items-center justify-between gap-4"
       >
         <div>
-          <h1 className="text-3xl font-serif font-bold text-primary">Welcome back, {MOCK_USER.name.split(' ')[0]}</h1>
-          <p className="text-muted-foreground mt-1">Here's what's happening with {MOCK_USER.inmateName}'s case.</p>
+          <h1 className="text-3xl font-serif font-bold text-primary">Welcome back, {profile.name.split(' ')[0]}</h1>
+          <p className="text-muted-foreground mt-1">Here's what's happening with {profile.inmateName}'s case.</p>
         </div>
         <div className="flex gap-3">
           <Button className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20">

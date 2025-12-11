@@ -16,11 +16,17 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import logo from "@assets/generated_images/minimalist_legal_icon_representing_justice_and_protection.png";
-import { MOCK_USER } from "@/lib/mockData";
+import { useUserStore } from "@/lib/userStore";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { profile, reset } = useUserStore();
+
+  const handleLogout = () => {
+    reset();
+    window.location.reload();
+  };
 
   const navItems = [
     { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -60,13 +66,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="p-4 border-t border-sidebar-border mt-auto">
         <div className="flex items-center gap-3 px-2 py-2">
           <Avatar className="h-9 w-9 border border-sidebar-border">
-            <AvatarFallback className="bg-sidebar-accent text-sidebar-foreground">MR</AvatarFallback>
+            <AvatarFallback className="bg-sidebar-accent text-sidebar-foreground">
+              {profile.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">{MOCK_USER.name}</p>
-            <p className="text-xs text-sidebar-foreground/60 truncate">{MOCK_USER.role}</p>
+            <p className="text-sm font-medium truncate">{profile.name}</p>
+            <p className="text-xs text-sidebar-foreground/60 truncate">{profile.role}</p>
           </div>
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-sidebar-foreground/70 hover:text-sidebar-foreground">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-8 w-8 text-sidebar-foreground/70 hover:text-sidebar-foreground"
+            onClick={handleLogout}
+          >
             <LogOut className="w-4 h-4" />
           </Button>
         </div>
@@ -99,7 +112,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             
             <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
               <ShieldCheck className="w-4 h-4 text-primary" />
-              <span>Tracking case for: <span className="font-semibold text-foreground">{MOCK_USER.inmateName}</span> ({MOCK_USER.inmateId})</span>
+              <span>Tracking case for: <span className="font-semibold text-foreground">{profile.inmateName}</span> ({profile.inmateId})</span>
             </div>
           </div>
 
