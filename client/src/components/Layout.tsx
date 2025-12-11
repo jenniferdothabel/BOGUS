@@ -42,7 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <img src={logo} alt="B.O.G.U.S." className="w-10 h-10 rounded-lg bg-white p-1" />
         <div>
           <h1 className="font-serif font-bold text-lg leading-tight tracking-tight">B.O.G.U.S.</h1>
-          <p className="text-xs text-sidebar-foreground/70">Legal Support System</p>
+          <p className="text-[10px] leading-tight text-sidebar-foreground/70 max-w-[140px]">Bridging Offenders & Guardians Using Support</p>
         </div>
       </div>
 
