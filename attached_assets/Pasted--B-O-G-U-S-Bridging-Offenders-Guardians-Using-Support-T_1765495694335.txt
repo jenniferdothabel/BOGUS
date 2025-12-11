@@ -1,0 +1,147 @@
+
+B.O.G.U.S.
+Bridging Offenders & Guardians Using Support
+
+💬 Tagline:
+
+“Track cases. Stay informed. Take control.”
+
+## 📱 * Case Tracker for  Inmates & Families**
+
+### 🔑 Purpose:
+
+To empower inmates and their loved ones to **track**, **understand**, and **organize** their civil rights lawsuits (like 42 USC §1983 claims) and **prison-related grievances**, with easy tools and accessible legal info.
+
+---
+
+## 🧩 KEY MODULES & FEATURES
+
+### 1. 📆 **Case Timeline & Legal Phase Tracker**
+
+* **Visual timeline**: tracks major phases like:
+
+  * Filing of Complaint
+  * Service of Defendants
+  * Motions to Dismiss
+  * Discovery (including subpoenas & interrogatories)
+  * Summary Judgment
+  * Trial
+* Families can **track delays, deadlines, and expected next steps**
+* Add **status notes** (e.g., “Waiting for court to rule on motion filed 10/1”)
+
+---
+
+### 2. 📁 **Legal Document Hub (with Upload/Scan Options)**
+
+* Families can upload:
+
+  * Court documents from PACER
+  * CDCR 602 grievances
+  * Medical records
+  * Legal mail
+* Tag docs by type: “Complaint,” “Grievance,” “Medical,” etc.
+* Export for lawyers or reprint for mail-ins
+
+---
+
+### 3. 💬 **Inmate Journal & Family Notes**
+
+* Families can log calls/letters with the inmate:
+
+  * “Talked with Joe on 11/5. Complains of untreated back injury.”
+* Track medical complaints, abuse, retaliation, etc.
+* Sync with court evidence later
+* Inmate-written notes can be logged manually by family
+
+---
+
+### 4. 👨‍👩‍👧‍👦 **Family Dashboard**
+
+* All authorized family/supporters can access the same case info
+* Each person can get reminders, upload docs, write updates
+* Ideal for **coordinating advocacy efforts** (e.g., letter-writing, legal fundraisers, etc.)
+
+---
+
+### 5. 🚨 **Urgent Incident Log**
+
+* Log serious events:
+
+  * Excessive force
+  * Denial of care
+  * Retaliation
+* Date/time stamped entries (good for future §1983 claims or evidence gathering)
+
+---
+
+### 6. ⚖️ **California Civil Rights Law Help Center**
+
+Tailored knowledge base for:
+
+* Inmate rights under **California law** (Cal. Const., Penal Code §2650+, Title 15 regs)
+* **How 42 USC §1983 works**
+* How to use the **Prison Litigation Reform Act (PLRA)** wisely (especially exhaustion of remedies!)
+* CDCR grievance process (602s, appeals, timelines)
+* Template letters and grievances
+* When and how to seek legal help (e.g., ACLU SoCal, Prison Law Office)
+
+---
+
+### 7. 📬 **Legal Mail Tracker**
+
+* Log dates when:
+
+  * Inmate mailed documents
+  * Family received letters
+  * Court filings were sent/received
+* Optional: track mail delays or loss, which can be an issue in retaliation claims
+
+---
+
+### 8. 🧑‍⚖️ **Court Case Lookup & PACER Integration (optional)**
+
+* Pull data from:
+
+  * PACER (federal cases)
+  * Local superior courts (if suing in state court)
+* Updates auto-posted to timeline (e.g., “Motion to Dismiss filed by defendant 12/1/25”)
+
+---
+
+### 9. 🔐 **Secure & Family-Friendly Interface**
+
+* Easy enough for non-legal users
+* Privacy-first:
+
+  * End-to-end encryption
+  * PIN or biometric access
+* Offline mode (for families with limited access)
+
+---
+
+### 🔄 How Families Would Use It (Example Flow)
+
+> **Maria’s son is incarcerated in Corcoran and filed a federal civil rights lawsuit alleging denial of medical care.**
+
+* Maria gets a login from her son’s lawyer or sets up an account
+* She uploads court documents from PACER and logs every call/letter
+* She adds notes about missed doctor visits and timelines
+* She shares access with her daughter to help track hearings
+* They receive alerts when new filings happen
+* When her son gets retaliated against, she logs it in the “Urgent Incident” tracker
+* Later, this log is used as part of an amended complaint for retaliation
+
+---
+
+## 🛠️ Technical Recommendations (for Developer or No-Code MVP)
+
+| Component            | Recommendation                                        |
+| -------------------- | ----------------------------------------------------- |
+| **Stack**            | React Native + Firebase (real-time + offline support) |
+| **Login**            | Biometric login, optional PIN, family code sharing    |
+| **Document Storage** | Firebase or AWS S3, encrypted at rest                 |
+| **Notifications**    | Push & email alerts for case updates                  |
+| **Data Sync**        | Sync logs, uploads, and timeline entries in real time |
+| **Accessibility**    | Simple UI, Spanish language support, mobile-first     |
+
+---
